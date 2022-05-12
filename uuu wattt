@@ -1,0 +1,192 @@
+from tkinter import *
+from tkinter import messagebox as msb
+import random as rand
+MOZNOSTI = ["součet","rozdíl","součin","podíl"]
+ 
+sspravne=0
+sspatne=0
+
+
+def generace(self):
+    if swag.get()=="součet":
+        znamenkolol.set("+")
+        cislo1lol.set(0)
+        cislo2lol.set(0)
+    elif swag.get()=="rozdíl":
+        znamenkolol.set("-")
+        cislo1lol.set(0)
+        cislo2lol.set(0)
+    elif swag.get()=="součin":
+        znamenkolol.set("x")
+        cislo1lol.set(0)
+        cislo2lol.set(0)
+    elif swag.get()=="podíl":
+        znamenkolol.set(":")
+        cislo1lol.set(0)
+        cislo2lol.set(0)
+        
+def generacecisel():
+    global x
+    global y
+    if swag.get()=="součet":
+        x=rand.randint(1,100)
+        y=rand.randint(1,100-x)
+        cislo1lol.set(x)
+        cislo2lol.set(y)
+    elif swag.get()=="rozdíl":
+        x=rand.randint(1,100)
+        y=rand.randint(1,x)
+        cislo1lol.set(x)
+        cislo2lol.set(y)
+    elif swag.get()=="součin":
+        x=rand.randint(1,10)
+        y=rand.randint(1,10)
+        cislo1lol.set(x)
+        cislo2lol.set(y)
+    elif swag.get()=="podíl":
+        while(1):
+            x=rand.randint(0,100)
+            y=rand.randint(1,10)
+            z=x/y
+            if x%y==0 and x/y<=10:
+                cislo1lol.set(x)
+                cislo2lol.set(y)
+                break
+            else:
+                pass
+
+def pess(): 
+    global sspravne
+    global sspatne
+    global x
+    global y
+    if swag.get()=="součet":
+        if x+y==int(float(vstup.get())):
+            spravnelol.set("správně")
+            x=rand.randint(1,100)
+            y=rand.randint(1,100-x)
+            cislo1lol.set(x)
+            cislo2lol.set(y)
+            vstup.delete(0,END)
+            sspravne+=1
+        else:
+            spravnelol.set("špatně")
+            sspatne+=1
+    elif swag.get()=="rozdíl":
+        if x-y==int(vstup.get()):
+            spravnelol.set("správně")
+            x=rand.randint(1,100)
+            y=rand.randint(1,x)
+            cislo1lol.set(x)
+            cislo2lol.set(y)
+            vstup.delete(0,END)
+            sspravne+=1
+        else:
+            spravnelol.set("špatně")
+            sspatne+=1
+    elif swag.get()=="součin":
+        if x*y==int(vstup.get()):
+            spravnelol.set("správně")
+            x=rand.randint(1,10)
+            y=rand.randint(1,10)
+            cislo1lol.set(x)
+            cislo2lol.set(y)
+            vstup.delete(0,END)
+            sspravne+=1
+        else:
+            spravnelol.set("špatně")
+            sspatne+=1
+    elif swag.get()=="podíl":
+        if x/y==int(vstup.get()):
+            spravnelol.set("správně")
+            while(1):
+                x=rand.randint(0,100)
+                y=rand.randint(1,10)
+                z=x/y
+                if x%y==0 and x/y<=10:
+                    cislo1lol.set(x)
+                    cislo2lol.set(y)
+                    vstup.delete(0,END)
+                    sspravne+=1
+                    break
+                else:
+                    pass
+        else:
+            spravnelol.set("špatně")
+            sspatne+=1
+            
+def konec():
+    dobrelol.set("dobře: {}".format(sspravne))
+    spatnelol.set("špatně: {}".format(sspatne))
+    procentlol.set("procent správně: {}".format(round(sspravne/(sspravne+sspatne)*100)))
+    
+    
+        
+    
+hlavni=Tk()
+y=6000
+colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
+for y in range(60000):
+    hlavni["bg"] = (colors[y%6])
+    
+hlavni.title("směnárna cz")
+
+cislo1lol=StringVar()
+cislo1lol.set("0")
+cislo1=Label(hlavni,textvariable=cislo1lol,font="Arial 20")
+cislo1.pack(padx=5,pady=5) 
+
+znamenkolol=StringVar()
+znamenkolol.set("+")
+znamenko=Label(hlavni,textvariable=znamenkolol,font="Arial 20")
+znamenko.pack(padx=5,pady=5)
+
+cislo2lol=StringVar()
+cislo2lol.set("0")
+cislo2=Label(hlavni,textvariable=cislo2lol,font="Arial 20")
+cislo2.pack(padx=5,pady=5)
+
+vystup=Label(hlavni,text="=",font="Arial 20",)
+vystup.pack(padx=5,pady=5)
+
+vstup=Entry(hlavni,width=19)
+vstup.pack(padx=5,pady=5)
+
+spravnelol=StringVar()
+spravnelol.set("zzzzzzz")
+spravne=Label(hlavni,textvariable=spravnelol,font="Arial 20")
+spravne.pack(padx=5,pady=5)
+
+swag=StringVar()
+vyber=OptionMenu(hlavni,swag,*MOZNOSTI,command=generace)
+vyber.configure(width=15)
+vyber.pack(padx=5,pady=5)
+
+prodat=Radiobutton(hlavni, text="Koupit", padx=20, value=1).pack(anchor=CENTER)
+koupit=Radiobutton(hlavni, text="Prodat", padx=20, value=2).pack(anchor=CENTER)
+
+vypocet=Button(hlavni,text="Začátek",width=15,command=generacecisel)
+vypocet.pack(padx=7,pady=5)
+
+hotooovo=Button(hlavni,text="kontrola",width=15,command=pess)
+hotooovo.pack(padx=7,pady=5)
+
+konec=Button(hlavni,text="Konec",width=15,command=konec)
+konec.pack(padx=7,pady=5)
+
+dobrelol=StringVar()
+dobrelol.set("dobře: ")
+dobre=Label(hlavni,textvariable=dobrelol,font="Arial 10",)
+dobre.pack(padx=7,pady=5)
+
+spatnelol=StringVar()
+spatnelol.set("špatně: ")
+spatne=Label(hlavni,textvariable=spatnelol,font="Arial 10",)
+spatne.pack(padx=7,pady=5)
+
+procentlol=StringVar()
+procentlol.set("procent správně: ")
+procentadobre=Label(hlavni,textvariable=procentlol,font="Arial 10",)
+procentadobre.pack(padx=7,pady=5)
+
+hlavni.mainloop()
