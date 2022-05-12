@@ -1,0 +1,109 @@
+from tkinter import *
+from tkinter import messagebox as msb
+import random as rand
+MOZNOSTI = ["GBP","EUR","USD","PLN"]
+
+
+gpb=29.18
+eur=24.46
+usd=22.38
+pln=5.27
+
+def generace(self):
+    if swag.get()=="GBP":
+        global gbpzaklad
+        gbpzaklad=int(float(vstup.get())*gpb)
+        dobrelol.set("Základ: "+str(gbpzaklad)+"Kč")
+    elif swag.get()=="EUR":
+        global eurzaklad
+        eurzaklad=int(float(vstup.get())*eur)
+        dobrelol.set("Základ: "+str(eurzaklad)+"Kč")
+    elif swag.get()=="USD":
+        global usdzaklad
+        usdzaklad=int(float(vstup.get())*usd)
+        dobrelol.set("Základ: "+str(usdzaklad)+"Kč")
+    elif swag.get()=="PLN":
+        global plnzaklad
+        plnzaklad=int(float(vstup.get())*pln)
+        dobrelol.set("Základ: "+str(plnzaklad)+"Kč")
+
+def vypocet():
+    if paneboze.get() == "Prodat" and swag.get()=="GBP":
+        gbppoplatek=gbpzaklad*0.005
+        celek=gbpzaklad-gbppoplatek
+        spatnelol.set("Poplatek: "+str(gbppoplatek)+"Kč")
+        procentlol.set("Vyberete: "+str(celek)+"Kč")
+    elif paneboze.get() == "Prodat" and swag.get()=="EUR":
+        eurpoplatek=eurzaklad*0.005
+        celeke=gbpzaklad-gbppoplatek
+        spatnelol.set("Poplatek: "+str(eurpoplatek)+"Kč")
+        procentlol.set("Vyberete: "+str(celeke)+"Kč")
+    elif paneboze.get() == "Prodat" and swag.get()=="USD":
+        usdpoplatek=usdzaklad*0.005
+        celeku=gbpzaklad-gbppoplatek
+        spatnelol.set("Poplatek: "+str(usdpoplatek)+"Kč")
+        procentlol.set("Vyberete: "+str(celeku)+"Kč")
+    elif paneboze.get() == "Prodat" and swag.get()=="PLN":
+        plnpoplatek=plnzaklad*0.005
+        celekp=gbpzaklad-gbppoplatek
+        spatnelol.set("Poplatek: "+str(plnpoplatek)+"Kč")
+        procentlol.set("Vyberete: "+str(celekp)+"Kč")
+    elif paneboze.get() == "Koupit" and swag.get()=="GBP":
+        gbppoplatek=gbpzaklad*0.005
+        celekg=gbpzaklad+gbppoplatek
+        spatnelol.set("Poplatek: "+str(gbppoplatek)+"Kč")
+        procentlol.set("Zaplatíte: "+str(celekg)+"Kč")
+    elif paneboze.get() == "Koupit" and swag.get()=="EUR":
+        eurpoplatek=eurzaklad*0.005
+        celekek=gbpzaklad+gbppoplatek
+        spatnelol.set("Poplatek: "+str(geurpoplatek)+"Kč")
+        procentlol.set("Zaplatíte: "+str(celekek)+"Kč")
+    elif paneboze.get() == "Koupit" and swag.get()=="USD":
+        usdpoplatek=usdzaklad*0.005
+        celekuk=gbpzaklad+gbppoplatek
+        spatnelol.set("Poplatek: "+str(usdpoplatek)+"Kč")
+        procentlol.set("Zaplatíte: "+str(celekuk)+"Kč")
+    elif paneboze.get() == "Koupit" and swag.get()=="PLN":
+        plnpoplatek=plnzaklad*0.005
+        celekpk=gbpzaklad+gbppoplatek
+        spatnelol.set("Poplatek: "+str(plnpoplatek)+"Kč")
+        procentlol.set("Zaplatíte: "+str(celekpk)+"Kč")
+
+
+     
+
+
+hlavni=Tk()
+hlavni["bg"] = "red"
+    
+hlavni.title("směnárna cz")
+
+swag=StringVar()
+vyber=OptionMenu(hlavni,swag,*MOZNOSTI,command=generace)
+vyber.configure(width=15)
+vyber.pack(padx=5,pady=5)
+
+vstup=Entry(hlavni,width=19)
+vstup.pack(padx=5,pady=5)
+
+paneboze=StringVar()
+prodat=Radiobutton(hlavni, text="Prodat", padx=20, variable=paneboze, value="Prodat",indicatoron=0,command=vypocet).pack(anchor=CENTER)
+koupit=Radiobutton(hlavni, text="Nakoupit", padx=20, variable=paneboze, value="Koupit",indicatoron=0,command=vypocet).pack(anchor=CENTER)
+
+dobrelol=StringVar()
+dobrelol.set("Základní částka: ")
+dobre=Label(hlavni,textvariable=dobrelol,font="Arial 10")
+dobre.pack(padx=7,pady=5)
+
+spatnelol=StringVar()
+spatnelol.set("Poplatek: ")
+spatne=Label(hlavni,textvariable=spatnelol,font="Arial 10",)
+spatne.pack(padx=7,pady=5)
+
+procentlol=StringVar()
+procentlol.set("Zaplatíte/Vyberete: ")
+procentadobre=Label(hlavni,textvariable=procentlol,font="Arial 10",)
+procentadobre.pack(padx=7,pady=5)
+
+
+hlavni.mainloop()
