@@ -1,3 +1,4 @@
+//nastav si define jako clovek uwu
 #define readA	GPIO_ReadInputPin(GPIOC,GPIO_PIN_6)
 #define readB	GPIO_ReadInputPin(GPIOE,GPIO_PIN_5)
 
