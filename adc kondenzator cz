@@ -1,0 +1,51 @@
+from tkinter import *
+from tkinter import messagebox as msb 
+import pylab as py
+
+#graf vykresleni a tak
+def Graf():
+    R=float(vstupR.get())
+    C=float(vstupC.get())*0.000001
+    U=float(vstupU.get())
+    if R==0 or C==0:
+        msb.showwarning("Chyba jsi dement!","Graf nejde udelat")
+    else:
+        x=py.arange(0,5*R*C,5*R*C/50)
+        y=[]
+        for i in x:
+            y.append(U*(1-py.e**((-i)/(R*C))))
+        py.title("Graf nabijeni deti")
+        py.xlabel("t[s]")
+        py.ylabel("U[V]")
+        py.plot(x,y)
+        py.grid(True)
+        py.show()
+
+
+hlavni=Tk()
+
+#vzhled aplikace
+ram=LabelFrame(hlavni,text="graf nabijeni kondezatoru",bd=2,relief="ridge",padx=10)
+ram.pack(padx=5,pady=5)
+
+popisR=Label(ram,text="zadej ohmmm",font="Calibri 10")
+popisR.grid()
+vstupR=Entry(ram,font="Calibri 10")
+vstupR.grid(row=1,padx=5)
+
+popisC=Label(ram,text="zadej C",font="Calibri 10")
+popisC.grid(row=2)
+vstupC=Entry(ram,font="Calibri 10")
+vstupC.grid(row=3,padx=5)
+
+popisU=Label(ram,text="zadej U",font="Calibri 10")
+popisU.grid(row=4)
+vstupU=Entry(ram,font="Calibri 10")
+vstupU.grid(row=5,padx=5)
+
+graf=Button(ram,text="vytvoř \ngraf",font="Calibri 10 bold",command=Graf)
+graf.grid(row=0,column=1,rowspan=6,sticky=N+S,padx=5)
+
+
+
+hlavni.mainloop()
